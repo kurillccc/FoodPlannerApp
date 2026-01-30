@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		FCF06FFC2F2CD46300018151 /* FoodPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC6A7A9D2F2CE17400046BB6 /* FoodPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = FoodPlanner.app; path = "/Users/kurillccc/Desktop/HWFromCourse/FoodPlanner/build/Debug-iphoneos/FoodPlanner.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		FCF0700E2F2CD46500018151 /* Exceptions for "FoodPlanner" folder in "FoodPlanner" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Resources/Info.plist,
 			);
 			target = FCF06FFB2F2CD46300018151 /* FoodPlanner */;
 		};
@@ -46,16 +46,7 @@
 			isa = PBXGroup;
 			children = (
 				FCF06FFE2F2CD46300018151 /* FoodPlanner */,
-				FCF06FFD2F2CD46300018151 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		FCF06FFD2F2CD46300018151 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FCF06FFC2F2CD46300018151 /* FoodPlanner.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,7 +71,7 @@
 			packageProductDependencies = (
 			);
 			productName = FoodPlanner;
-			productReference = FCF06FFC2F2CD46300018151 /* FoodPlanner.app */;
+			productReference = FC6A7A9D2F2CE17400046BB6 /* FoodPlanner.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -108,7 +99,7 @@
 			mainGroup = FCF06FF32F2CD46300018151;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = FCF06FFD2F2CD46300018151 /* Products */;
+			productRefGroup = FCF06FF32F2CD46300018151;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -150,7 +141,7 @@
 				INFOPLIST_FILE = FoodPlanner/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -182,7 +173,7 @@
 				INFOPLIST_FILE = FoodPlanner/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

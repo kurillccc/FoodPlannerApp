@@ -7,11 +7,16 @@
 
 import UIKit
 
-class WelcomeViewController: UIViewController {
+final class WelcomeViewController: UIViewController {
     
-    var router: Router
+    private let welcomeView = WelcomeView()
+    var router: Router?
     
-    init(router: Router) {
+    convenience init() {
+        self.init(router: nil)
+    }
+    
+    init(router: Router?) {
         self.router = router
         super.init(nibName: nil, bundle: nil)
     }
@@ -22,9 +27,58 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        setup()
+        layout()
     }
-
+    
+    func setup() {
+        view.addSubview(welcomeView)
+    }
+    
+    func layout() {
+        welcomeView.pinToEdges(of: view)
+    }
 
 }
 
+
+final class WelcomeView: UIView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        style()
+        layout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric)
+    }
+    
+}
+
+extension WelcomeView {
+    
+    private func setupView() {
+        
+    }
+    
+    private func style() {
+        backgroundColor = .blue
+    }
+    
+    private func layout() {
+        translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+}
+
+#Preview {
+    let vc = WelcomeViewController()
+    return UINavigationController(rootViewController: vc)
+}

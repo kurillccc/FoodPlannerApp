@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		FC6A7A9D2F2CE17400046BB6 /* FoodPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = FoodPlanner.app; path = "/Users/kurillccc/Desktop/HWFromCourse/FoodPlanner/build/Debug-iphoneos/FoodPlanner.app"; sourceTree = "<absolute>"; };
+		FC6A7AC02F2D012B00046BB6 /* FoodPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -46,6 +46,7 @@
 			isa = PBXGroup;
 			children = (
 				FCF06FFE2F2CD46300018151 /* FoodPlanner */,
+				FC6A7AC02F2D012B00046BB6 /* FoodPlanner.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,7 +72,7 @@
 			packageProductDependencies = (
 			);
 			productName = FoodPlanner;
-			productReference = FC6A7A9D2F2CE17400046BB6 /* FoodPlanner.app */;
+			productReference = FC6A7AC02F2D012B00046BB6 /* FoodPlanner.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -138,7 +139,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XD9897RVV9;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FoodPlanner/Info.plist;
+				INFOPLIST_FILE = FoodPlanner/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -170,7 +171,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XD9897RVV9;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FoodPlanner/Info.plist;
+				INFOPLIST_FILE = FoodPlanner/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";

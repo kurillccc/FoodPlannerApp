@@ -9,6 +9,7 @@ import UIKit
 
 final class CategoriesViewController: UIViewController {
     
+    private let categoriesView = CategoriesView()
     private var router: Router?
     
     convenience init() {
@@ -27,12 +28,39 @@ final class CategoriesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        embedViews()
+        setupLayout()
+        setupNavigationController()
     }
     
 }
 
-#Preview {
-    let vc = CategoriesViewController()
-    return UINavigationController(rootViewController: vc)
+// MARK: - Embed views
+
+private extension CategoriesViewController {
+    
+    func embedViews() {
+        view.addSubview(categoriesView)
+    }
+    
+}
+
+// MARK: - Setup layout
+
+private extension CategoriesViewController {
+    
+    func setupLayout() {
+        
+    }
+    
+}
+
+// MARK: - Setup navigation controller
+
+private extension CategoriesViewController {
+    
+    func setupNavigationController() {
+        
+    }
+    
 }

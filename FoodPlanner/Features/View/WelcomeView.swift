@@ -162,7 +162,5 @@ private extension WelcomeView {
 }
 
 #Preview {
-    let vc = WelcomeViewController()
-    return UINavigationController(rootViewController: vc)
+    WelcomeView()
 }
-

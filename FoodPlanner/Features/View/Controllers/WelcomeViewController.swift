@@ -31,8 +31,14 @@ final class WelcomeViewController: UIViewController {
         embedViews()
         setupLayout()
     }
+
+}
+
+// MARK: - Embed views
+
+private extension WelcomeViewController {
     
-    private func embedViews() {
+    func embedViews() {
         view.addSubview(welcomeView)
         welcomeView.didTapStart = { [weak self] in
             guard let self = self else { return }
@@ -40,8 +46,14 @@ final class WelcomeViewController: UIViewController {
         }
     }
     
-    private func setupLayout() {
+}
+
+// MARK: - Setup layout
+
+private extension WelcomeViewController {
+    
+    func setupLayout() {
         welcomeView.pinToEdges(of: view)
     }
-
+    
 }

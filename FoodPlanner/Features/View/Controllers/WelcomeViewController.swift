@@ -10,7 +10,7 @@ import UIKit
 final class WelcomeViewController: UIViewController {
     
     private let welcomeView = WelcomeView()
-    var router: Router?
+    private let router: Router?
     
     convenience init() {
         self.init(router: nil)
@@ -200,4 +200,3 @@ private extension WelcomeView {
     let vc = WelcomeViewController()
     return UINavigationController(rootViewController: vc)
 }
-

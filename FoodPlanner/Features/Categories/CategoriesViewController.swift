@@ -10,6 +10,7 @@ import UIKit
 final class CategoriesViewController: UIViewController {
     
     private let categoriesView = CategoriesView()
+    private let viewModel = CategoriesViewModel()
     private var router: Router?
     
     convenience init() {
@@ -90,7 +91,7 @@ extension CategoriesViewController: UICollectionViewDelegate {
 extension CategoriesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        CategoriesViewModel.numberOfCategories
+        return viewModel.numberOfCategories
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -99,6 +100,8 @@ extension CategoriesViewController: UICollectionViewDataSource {
             for: indexPath
         ) as? CategoriesCardCell else {  return UICollectionViewCell() }
         
+        let item = viewModel.categories[indexPath.row]
+        cell.model = item
         
         return cell
     }
@@ -109,7 +112,9 @@ extension CategoriesViewController: UICollectionViewDataSource {
 
 extension CategoriesViewController: UICollectionViewDelegateFlowLayout {
     
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 160, height: 180)
+    }
     
 }
 

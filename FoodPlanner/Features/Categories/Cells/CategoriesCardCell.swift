@@ -17,9 +17,12 @@ class CategoriesCardCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         return imageView
     }()
     
@@ -28,7 +31,10 @@ class CategoriesCardCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.textAlignment = .center
         label.numberOfLines = 0
+        
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
     
@@ -47,9 +53,8 @@ class CategoriesCardCell: UICollectionViewCell {
             
             titleLabel.text = model.title
             imageView.image = model.image
-            contentView.backgroundColor = model.color
-            contentView.layer.borderColor = model.borderColor.cgColor
-            contentView.layer.borderWidth = 1
+            backgroundColor = model.color
+            layer.borderColor = model.borderColor.cgColor
         }
 
     required init?(coder: NSCoder) {
@@ -89,7 +94,6 @@ private extension CategoriesCardCell {
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6),
             
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),

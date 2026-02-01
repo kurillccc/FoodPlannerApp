@@ -36,7 +36,6 @@ final class CategoriesView: UIView {
         
         embedViews()
         setupStyle()
-        setupBehavior()
         setupLayout()
     }
     
@@ -73,16 +72,6 @@ private extension CategoriesView {
     
 }
 
-// MARK: - Setup behavior
-
-private extension CategoriesView {
-    
-    func setupBehavior() {
-        
-    }
-    
-}
-
 // MARK: - Setup layout
 
 private extension CategoriesView {
@@ -100,11 +89,11 @@ private extension CategoriesView {
             
             collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 16),
             collectionView.leadingAnchor
-                .constraint(equalTo: leadingAnchor, constant: 20),
+                .constraint(equalTo: leadingAnchor, constant: 24),
             collectionView.trailingAnchor
-                .constraint(equalTo: trailingAnchor, constant: -20),
+                .constraint(equalTo: trailingAnchor, constant: -24),
             collectionView.bottomAnchor
-                .constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 8)
+                .constraint(equalTo: bottomAnchor, constant: 8)
         ])
     }
     

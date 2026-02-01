@@ -60,7 +60,45 @@ private extension CategoriesViewController {
 private extension CategoriesViewController {
     
     func setupNavigationController() {
+        title = "Find Products"
+        navigationItem.setHidesBackButton(true, animated: false)
+    }
+    
+}
+
+#Preview {
+    let vc = CategoriesViewController()
+    return UINavigationController(rootViewController: vc)
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension CategoriesViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
     }
+    
+}
+
+// MARK: - UICollectionViewDataSource
+
+extension CategoriesViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        10
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+    
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension CategoriesViewController: UICollectionViewDelegateFlowLayout {
+    
+    
     
 }

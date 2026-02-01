@@ -62,7 +62,6 @@ final class WelcomeView: UIView {
         super.init(frame: frame)
         
         embedViews()
-        setupStyle()
         setupBehavior()
         setupLayout()
     }
@@ -89,16 +88,6 @@ private extension WelcomeView {
             descriptionLabel,
             startButton
         )
-    }
-    
-}
-
-// MARK: - Setup style
-
-private extension WelcomeView {
-    
-    func setupStyle() {
-        
     }
     
 }

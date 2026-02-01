@@ -22,6 +22,11 @@ final class CategoriesView: UIView {
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
+        collectionView
+            .register(
+                CategoryCardCell.self,
+                forCellWithReuseIdentifier: CategoryCardCell.identifier
+            )
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -99,7 +104,7 @@ private extension CategoriesView {
             collectionView.trailingAnchor
                 .constraint(equalTo: trailingAnchor, constant: -20),
             collectionView.bottomAnchor
-                .constraint(equalTo: bottomAnchor, constant: 8)
+                .constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 8)
         ])
     }
     

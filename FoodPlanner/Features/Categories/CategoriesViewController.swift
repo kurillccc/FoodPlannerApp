@@ -29,6 +29,7 @@ final class CategoriesViewController: UIViewController {
         super.viewDidLoad()
         
         embedViews()
+        setupDelegates()
         setupLayout()
         setupNavigationController()
     }
@@ -45,12 +46,22 @@ private extension CategoriesViewController {
     
 }
 
+// MARK: - Setup Delegates
+private extension CategoriesViewController {
+    
+    func setupDelegates() {
+        categoriesView.collectionView.delegate = self
+        categoriesView.collectionView.dataSource = self
+    }
+    
+}
+
 // MARK: - Setup layout
 
 private extension CategoriesViewController {
-    
+
     func setupLayout() {
-        
+        categoriesView.pinToEdges(of: view)
     }
     
 }
@@ -66,18 +77,11 @@ private extension CategoriesViewController {
     
 }
 
-#Preview {
-    let vc = CategoriesViewController()
-    return UINavigationController(rootViewController: vc)
-}
-
 // MARK: - UICollectionViewDelegate
 
 extension CategoriesViewController: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
+
     
 }
 
@@ -90,7 +94,13 @@ extension CategoriesViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CategoryCardCell.identifier,
+            for: indexPath
+        ) as? CategoryCardCell else {  return UICollectionViewCell() }
+        
+        
+        return cell
     }
     
 }
@@ -101,4 +111,9 @@ extension CategoriesViewController: UICollectionViewDelegateFlowLayout {
     
     
     
+}
+
+#Preview {
+    let vc = CategoriesViewController()
+    return UINavigationController(rootViewController: vc)
 }

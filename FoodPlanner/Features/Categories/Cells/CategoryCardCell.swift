@@ -26,6 +26,8 @@ class CategoryCardCell: UICollectionViewCell {
         return label
     }()
     
+    static let identifier = "CategoryCardCell"
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -67,13 +69,12 @@ private extension CategoryCardCell {
 private extension CategoryCardCell {
     
     func setupLayout() {
-        translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 32),
             imageView.leadingAnchor
-                .constraint(equalTo: leadingAnchor, constant: 16),
+                .constraint(equalTo: contentView.leadingAnchor, constant: 16),
             imageView.trailingAnchor
-                .constraint(equalTo: trailingAnchor, constant: -16),
+                .constraint(equalTo: contentView.trailingAnchor, constant: -16),
             imageView.bottomAnchor
                 .constraint(equalTo: contentView.bottomAnchor),
             
@@ -88,8 +89,4 @@ private extension CategoryCardCell {
         ])
     }
     
-}
-
-#Preview {
-    CategoryCardCell()
 }

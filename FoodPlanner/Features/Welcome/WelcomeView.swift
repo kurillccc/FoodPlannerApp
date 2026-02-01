@@ -1,48 +1,11 @@
 //
-//  ViewController.swift
+//  WelcomeView.swift
 //  FoodPlanner
 //
-//  Created by Кирилл on 30.01.2026.
+//  Created by Кирилл on 31.01.2026.
 //
 
 import UIKit
-
-final class WelcomeViewController: UIViewController {
-    
-    private let welcomeView = WelcomeView()
-    var router: Router?
-    
-    convenience init() {
-        self.init(router: nil)
-    }
-    
-    init(router: Router?) {
-        self.router = router
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        embedViews()
-        setupLayout()
-    }
-    
-    func embedViews() {
-        view.addSubview(welcomeView)
-    }
-    
-    func setupLayout() {
-        welcomeView.pinToEdges(of: view)
-    }
-
-}
-
-// MARK: - class WelcomeView
 
 final class WelcomeView: UIView {
     
@@ -93,11 +56,12 @@ final class WelcomeView: UIView {
         return button
     }()
     
+    var didTapStart: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         embedViews()
-        setupStyle()
         setupBehavior()
         setupLayout()
     }
@@ -128,16 +92,6 @@ private extension WelcomeView {
     
 }
 
-// MARK: - Setup style
-
-private extension WelcomeView {
-    
-    func setupStyle() {
-        
-    }
-    
-}
-
 // MARK: - Setup behavior
 
 private extension WelcomeView {
@@ -152,7 +106,7 @@ private extension WelcomeView {
     }
     
     @objc func startButtonSelector() {
-        
+        didTapStart?()
     }
     
 }
@@ -197,7 +151,5 @@ private extension WelcomeView {
 }
 
 #Preview {
-    let vc = WelcomeViewController()
-    return UINavigationController(rootViewController: vc)
+    WelcomeView()
 }
-

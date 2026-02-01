@@ -24,8 +24,8 @@ final class CategoriesView: UIView {
         collectionView.showsVerticalScrollIndicator = false
         collectionView
             .register(
-                CategoryCardCell.self,
-                forCellWithReuseIdentifier: CategoryCardCell.identifier
+                CategoriesCardCell.self,
+                forCellWithReuseIdentifier: CategoriesCardCell.identifier
             )
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView

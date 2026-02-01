@@ -7,7 +7,13 @@
 
 import UIKit
 
-class CategoryCardCell: UICollectionViewCell {
+class CategoriesCardCell: UICollectionViewCell {
+    
+    var model: CategoriesCardModel? {
+        didSet {
+            bind()
+        }
+    }
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -35,6 +41,16 @@ class CategoryCardCell: UICollectionViewCell {
         setupStyle()
         setupLayout()
     }
+    
+    private func bind() {
+            guard let model = model else { return }
+            
+            titleLabel.text = model.title
+            imageView.image = model.image
+            contentView.backgroundColor = model.color
+            contentView.layer.borderColor = model.borderColor.cgColor
+            contentView.layer.borderWidth = 1
+        }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -44,7 +60,7 @@ class CategoryCardCell: UICollectionViewCell {
 
 // MARK: - Embed views
 
-private extension CategoryCardCell {
+private extension CategoriesCardCell {
     
     func embedViews() {
         contentView.addSubViews(imageView, titleLabel)
@@ -54,7 +70,7 @@ private extension CategoryCardCell {
 
 // MARK: - Setup style
 
-private extension CategoryCardCell {
+private extension CategoriesCardCell {
     
     func setupStyle() {
         layer.cornerRadius = 16
@@ -66,26 +82,19 @@ private extension CategoryCardCell {
 
 // MARK: - Setup layout
 
-private extension CategoryCardCell {
+private extension CategoriesCardCell {
     
     func setupLayout() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 32),
-            imageView.leadingAnchor
-                .constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            imageView.trailingAnchor
-                .constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            imageView.bottomAnchor
-                .constraint(equalTo: contentView.bottomAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6),
             
-            titleLabel.topAnchor
-                .constraint(equalTo: imageView.bottomAnchor, constant: 8),
-            titleLabel.leadingAnchor
-                .constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor
-                .constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            titleLabel.bottomAnchor
-                .constraint(equalTo: contentView.bottomAnchor)
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
     

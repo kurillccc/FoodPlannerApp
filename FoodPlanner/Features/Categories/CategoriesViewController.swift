@@ -90,14 +90,14 @@ extension CategoriesViewController: UICollectionViewDelegate {
 extension CategoriesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        CategoriesViewModel.numberOfCategories
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: CategoryCardCell.identifier,
+            withReuseIdentifier: CategoriesCardCell.identifier,
             for: indexPath
-        ) as? CategoryCardCell else {  return UICollectionViewCell() }
+        ) as? CategoriesCardCell else {  return UICollectionViewCell() }
         
         
         return cell

@@ -26,7 +26,7 @@ enum AppColor {
             static let stroke = UIColor(red: 247, green: 163, blue: 76, alpha: 0.7)
         }
 
-        enum MeatFish {
+        enum Meat {
             static let fill = UIColor(red: 247, green: 166, blue: 148, alpha: 0.25)
             static let stroke = UIColor(red: 247, green: 166, blue: 148, alpha: 1)
         }
@@ -36,12 +36,12 @@ enum AppColor {
             static let stroke = UIColor(red: 212, green: 176, blue: 224, alpha: 1)
         }
 
-        enum DairyEggs {
+        enum Dairy {
             static let fill = UIColor(red: 252, green: 230, blue: 153, alpha: 0.25)
             static let stroke = UIColor(red: 252, green: 230, blue: 153, alpha: 1)
         }
 
-        enum Beverage {
+        enum Drinks {
             static let fill = UIColor(red: 184, green: 222, blue: 245, alpha: 0.25)
             static let stroke = UIColor(red: 184, green: 222, blue: 245, alpha: 1)
         }

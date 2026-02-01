@@ -13,6 +13,9 @@ final class CategoriesViewController: UIViewController {
     private let viewModel = CategoriesViewModel()
     private var router: Router?
     
+    private var allCategories: [CategoriesCardModel] = []
+    private var filteredCategories: [CategoriesCardModel] = []
+    
     convenience init() {
         self.init(router: nil)
     }
@@ -33,6 +36,9 @@ final class CategoriesViewController: UIViewController {
         setupDelegates()
         setupLayout()
         setupNavigationController()
+        
+        allCategories = viewModel.categories
+        filteredCategories = allCategories
     }
     
 }
@@ -48,11 +54,14 @@ private extension CategoriesViewController {
 }
 
 // MARK: - Setup Delegates
+
 private extension CategoriesViewController {
     
     func setupDelegates() {
         categoriesView.collectionView.delegate = self
         categoriesView.collectionView.dataSource = self
+        
+        categoriesView.searchBar.delegate = self
     }
     
 }
@@ -82,7 +91,7 @@ private extension CategoriesViewController {
 
 extension CategoriesViewController: UICollectionViewDelegate {
     
-
+    
     
 }
 
@@ -91,7 +100,7 @@ extension CategoriesViewController: UICollectionViewDelegate {
 extension CategoriesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfCategories
+        return filteredCategories.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -99,10 +108,10 @@ extension CategoriesViewController: UICollectionViewDataSource {
             withReuseIdentifier: CategoriesCardCell.identifier,
             for: indexPath
         ) as? CategoriesCardCell else {  return UICollectionViewCell() }
-        
-        let item = viewModel.categories[indexPath.row]
+
+        let item = filteredCategories[indexPath.row]
         cell.model = item
-        
+
         return cell
     }
     
@@ -116,6 +125,35 @@ extension CategoriesViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: 160, height: 180)
     }
     
+}
+
+// MARK: - UISearchBarDelegate
+
+extension CategoriesViewController: UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        if query.isEmpty {
+            filteredCategories = allCategories
+        } else {
+            filteredCategories = allCategories.filter { model in
+                model.title.range(of: query, options: [.caseInsensitive, .diacriticInsensitive]) != nil
+            }
+        }
+        categoriesView.collectionView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        filteredCategories = allCategories
+        categoriesView.collectionView.reloadData()
+        searchBar.resignFirstResponder()
+    }
 }
 
 #Preview {

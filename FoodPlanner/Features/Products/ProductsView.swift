@@ -9,6 +9,15 @@ import UIKit
 
 final class ProductsView: UIView {
     
+    lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Search Store"
+        searchBar.searchBarStyle = .minimal
+        searchBar.showsCancelButton = true
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchBar
+    }()
+    
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -36,7 +45,10 @@ final class ProductsView: UIView {
 private extension ProductsView {
     
     func embedViews() {
-        addSubview(collectionView)
+        addSubViews(
+            searchBar,
+            collectionView
+        )
     }
     
 }
@@ -59,11 +71,14 @@ private extension ProductsView {
         translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            searchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
+            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            
+            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            collectionView.bottomAnchor
-                .constraint(equalTo: bottomAnchor, constant: 8)
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 8)
         ])
     }
     

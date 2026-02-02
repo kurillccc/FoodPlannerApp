@@ -60,6 +60,7 @@ private extension ProductsViewController {
     func setupDelegates() {
         productsView.collectionView.delegate = self
         productsView.collectionView.dataSource = self
+        productsView.searchBar.delegate = self
     }
     
 }
@@ -130,6 +131,28 @@ extension ProductsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat { 12 }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat { 12 }
+    
+}
+
+// MARK: - UISearchBarDelegate
+
+extension ProductsViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.filter(by: searchText)
+        productsView.collectionView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        viewModel.filter(by: nil)
+        productsView.collectionView.reloadData()
+        searchBar.resignFirstResponder()
+    }
     
 }
 

@@ -85,14 +85,14 @@ struct MockProductsDataProvider: ProductsDataProvider {
     func beverageProducts() -> [ProductsModel] {
         return [
             ProductsModel(
-                id: "7",
+                id: "10",
                 title: "Cola",
                 image: Images.ProductImages.Drinks.cola,
                 price: 99,
                 categoryId: "beverages"
             ),
             ProductsModel(
-                id: "8",
+                id: "11",
                 title: "Orange juice",
                 image: Images.ProductImages.Drinks.juice,
                 price: 180,

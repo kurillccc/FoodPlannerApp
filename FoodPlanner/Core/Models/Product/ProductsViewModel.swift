@@ -15,6 +15,8 @@ final class ProductsViewModel {
     private(set) var allProducts: [ProductsModel] = []
     private(set) var products: [ProductsModel] = []
     
+    private(set) var cart: [ProductsModel] = []
+    
     init(categoryId: String, dataProvider: ProductsDataProvider = MockProductsDataProvider()) {
         self.categoryId = categoryId
         self.dataProvider = dataProvider
@@ -42,5 +44,9 @@ final class ProductsViewModel {
         } else {
             products = allProducts.filter { $0.title.range(of: q, options: [.caseInsensitive, .diacriticInsensitive]) != nil }
         }
+    }
+    
+    func addToCart(_ product: ProductsModel) {
+        cart.append(product)
     }
 }

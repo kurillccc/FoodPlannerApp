@@ -6,30 +6,19 @@
 //
 
 import UIKit
+import Foundation
 
 final class ProductsViewController: UIViewController {
     
     private let productsView = ProductsView()
     private let viewModel: ProductsViewModel
-    private var router: Router?
     
     init(categoryId: String, categoryTitle: String) {
         self.viewModel = ProductsViewModel(categoryId: categoryId)
-        self.router = nil
         super.init(nibName: nil, bundle: nil)
         self.title = categoryTitle
     }
 
-    convenience init() {
-        self.init(router: nil)
-    }
-
-    init(router: Router?) {
-        self.viewModel = ProductsViewModel(categoryId: "")
-        self.router = router
-        super.init(nibName: nil, bundle: nil)
-    }
-    
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     override func viewDidLoad() {
@@ -111,6 +100,9 @@ extension ProductsViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.configure(with: viewModel.item(at: indexPath))
+        cell.addToCartAction = { product in
+            CartManager.shared.add(product: product)
+        }
         return cell
     }
     
@@ -157,6 +149,6 @@ extension ProductsViewController: UISearchBarDelegate {
 }
 
 #Preview {
-    let vc = ProductsViewController()
+    let vc = ProductsViewController(categoryId: "", categoryTitle: "")
     return UINavigationController(rootViewController: vc)
 }

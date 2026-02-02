@@ -22,5 +22,18 @@ final class CartManager {
         }
         NotificationCenter.default.post(name: .init("cartUpdated"), object: nil)
     }
+
+    func remove(at index: Int) {
+        guard items.indices.contains(index) else { return }
+        items.remove(at: index)
+        NotificationCenter.default.post(name: .init("cartUpdated"), object: nil)
+    }
+
+    func totalAmount() -> Decimal {
+        items.reduce(0) { partial, item in
+            let price = item.product.price ?? 0
+            return partial + (price * Decimal(item.quantity))
+        }
+    }
     
 }

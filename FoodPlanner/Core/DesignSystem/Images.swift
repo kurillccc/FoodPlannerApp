@@ -23,4 +23,20 @@ struct Images {
         static let oils = UIImage(named: "oils")!
     }
     
+    struct ProductImages {
+        struct Bakery {
+            static let baguette = UIImage(named: "baguette")!
+            static let croissant = UIImage(named: "croissant")!
+            static let bread = UIImage(named: "bread")!
+            static let cookies = UIImage(named: "cookies")!
+            static let donut = UIImage(named: "donut")!
+            static let pie = UIImage(named: "pie")!
+        }
+        
+        struct Drinks {
+            static let cola = UIImage(named: "cola")!
+            static let juice = UIImage(named: "juice")!
+        }
+    }
+    
 }

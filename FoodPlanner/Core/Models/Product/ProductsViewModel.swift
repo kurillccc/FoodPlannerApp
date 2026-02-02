@@ -18,8 +18,17 @@ final class ProductsViewModel {
     init(categoryId: String, dataProvider: ProductsDataProvider = MockProductsDataProvider()) {
         self.categoryId = categoryId
         self.dataProvider = dataProvider
-        self.allProducts = dataProvider.loadProducts()
-        self.products = allProducts.filter { $0.categoryId == categoryId }
+        
+        switch categoryId {
+        case "beverages":
+            self.allProducts = dataProvider.beverageProducts()
+        case "bakery":
+            self.allProducts = dataProvider.bakeryProducts()
+        default:
+            self.allProducts = []
+        }
+        
+        self.products = allProducts
     }
     
     var numberOfItems: Int { products.count }
@@ -29,10 +38,9 @@ final class ProductsViewModel {
     func filter(by query: String?) {
         let q = (query ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         if q.isEmpty {
-            products = allProducts.filter { $0.categoryId == categoryId }
+            products = allProducts
         } else {
-            products = allProducts.filter { $0.categoryId == categoryId && $0.title.range(of: q, options: [.caseInsensitive, .diacriticInsensitive]) != nil }
+            products = allProducts.filter { $0.title.range(of: q, options: [.caseInsensitive, .diacriticInsensitive]) != nil }
         }
     }
-    
 }

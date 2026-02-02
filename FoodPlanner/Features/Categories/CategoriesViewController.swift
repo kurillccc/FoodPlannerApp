@@ -91,7 +91,12 @@ private extension CategoriesViewController {
 
 extension CategoriesViewController: UICollectionViewDelegate {
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let category = viewModel.categories[indexPath.item]
+        let categoryId = category.categoryId
+        let vc = ProductsViewController(categoryId: categoryId, categoryTitle: category.title)
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
 }
 

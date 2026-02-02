@@ -13,6 +13,7 @@ final class CategoriesView: UIView {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Search Store"
         searchBar.searchBarStyle = .minimal
+        searchBar.showsCancelButton = true
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()
@@ -67,7 +68,7 @@ private extension CategoriesView {
 private extension CategoriesView {
     
     func setupStyle() {
-        backgroundColor = .white
+        backgroundColor = .systemBackground
     }
     
 }

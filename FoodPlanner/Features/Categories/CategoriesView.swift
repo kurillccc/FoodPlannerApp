@@ -68,7 +68,7 @@ private extension CategoriesView {
 private extension CategoriesView {
     
     func setupStyle() {
-        backgroundColor = .white
+        backgroundColor = .systemBackground
     }
     
 }

@@ -41,8 +41,7 @@ private extension WelcomeViewController {
     func embedViews() {
         view.addSubview(welcomeView)
         welcomeView.didTapStart = { [weak self] in
-            guard let self = self else { return }
-            self.router?.pushCategoriesViewController()
+            self?.router?.showMainFlow()
         }
     }
     

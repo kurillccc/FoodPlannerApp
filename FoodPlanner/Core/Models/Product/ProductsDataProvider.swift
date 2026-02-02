@@ -57,6 +57,27 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 image: Images.ProductImages.Bakery.pie,
                 price: 320,
                 categoryId: "bakery"
+            ),
+            ProductsModel(
+                id: "7",
+                title: "Cherry pie",
+                image: Images.ProductImages.Bakery.pie,
+                price: 300,
+                categoryId: "bakery"
+            ),
+            ProductsModel(
+                id: "8",
+                title: "Cherry pie",
+                image: Images.ProductImages.Bakery.pie,
+                price: 250,
+                categoryId: "bakery"
+            ),
+            ProductsModel(
+                id: "9",
+                title: "Cherry pie",
+                image: Images.ProductImages.Bakery.pie,
+                price: 390,
+                categoryId: "bakery"
             )
         ]
     }

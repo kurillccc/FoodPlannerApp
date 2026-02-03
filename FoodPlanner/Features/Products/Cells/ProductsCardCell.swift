@@ -10,6 +10,9 @@ import UIKit
 final class ProductsCardCell: UICollectionViewCell {
     
     static let identifier = "ProductCardCell"
+    
+    var addToCartAction: ((ProductsModel) -> Void)?
+    private var currentProduct: ProductsModel?
 
     private let imageView: UIImageView = {
         let image = UIImageView()
@@ -41,12 +44,23 @@ final class ProductsCardCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    private let addButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Add", for: .normal)
+        button.setTitleColor(AppColor.Primary.main, for: .normal)
+        button.layer.cornerRadius = 8
+        button.backgroundColor = .tertiarySystemFill
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         embedViews()
         setupStyle()
+        setupBehavior()
         setupLayout()
     }
 
@@ -55,6 +69,8 @@ final class ProductsCardCell: UICollectionViewCell {
     func configure(with product: ProductsModel) {
         imageView.image = product.image
         titleLabel.text = product.title
+        currentProduct = product
+        
         if let price = product.price {
             priceLabel.text = format(price: price)
         } else {
@@ -79,7 +95,8 @@ private extension ProductsCardCell {
         contentView.addSubViews(
             imageView,
             titleLabel,
-            priceLabel
+            priceLabel,
+            addButton
         )
     }
     
@@ -93,6 +110,35 @@ private extension ProductsCardCell {
         contentView.layer.cornerRadius = 16
         contentView.layer.borderWidth = 2
         contentView.layer.borderColor = UIColor.separator.cgColor
+    }
+    
+}
+
+// MARK: - Setup behavior
+
+private extension ProductsCardCell {
+    
+    func setupBehavior() {
+        addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func addButtonTapped() {
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+
+        UIView.animate(withDuration: 0.08, animations: {
+            self.addButton.alpha = 0.7
+            self.addButton.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.12) {
+                self.addButton.alpha = 1.0
+                self.addButton.transform = .identity
+            }
+        })
+
+        guard let product = currentProduct else { return }
+        NotificationCenter.default.post(name: .init("cartUpdated"), object: product)
+        addToCartAction?(product)
     }
     
 }
@@ -114,7 +160,12 @@ private extension ProductsCardCell {
             priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12)
+            
+            addButton.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 8),
+            addButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            addButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            addButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            addButton.heightAnchor.constraint(equalToConstant: 32)
         ])
     }
     

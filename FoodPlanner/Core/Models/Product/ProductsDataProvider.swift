@@ -57,6 +57,27 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 image: Images.ProductImages.Bakery.pie,
                 price: 320,
                 categoryId: "bakery"
+            ),
+            ProductsModel(
+                id: "7",
+                title: "Cherry pie",
+                image: Images.ProductImages.Bakery.pie,
+                price: 300,
+                categoryId: "bakery"
+            ),
+            ProductsModel(
+                id: "8",
+                title: "Cherry pie",
+                image: Images.ProductImages.Bakery.pie,
+                price: 250,
+                categoryId: "bakery"
+            ),
+            ProductsModel(
+                id: "9",
+                title: "Cherry pie",
+                image: Images.ProductImages.Bakery.pie,
+                price: 390,
+                categoryId: "bakery"
             )
         ]
     }
@@ -64,14 +85,14 @@ struct MockProductsDataProvider: ProductsDataProvider {
     func beverageProducts() -> [ProductsModel] {
         return [
             ProductsModel(
-                id: "7",
+                id: "10",
                 title: "Cola",
                 image: Images.ProductImages.Drinks.cola,
                 price: 99,
                 categoryId: "beverages"
             ),
             ProductsModel(
-                id: "8",
+                id: "11",
                 title: "Orange juice",
                 image: Images.ProductImages.Drinks.juice,
                 price: 180,

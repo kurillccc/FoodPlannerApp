@@ -8,24 +8,16 @@
 import UIKit
 
 final class Router {
-    
-    let navigation: UINavigationController
-        
+
+    private let navigation: UINavigationController
+
     init(navigation: UINavigationController) {
         self.navigation = navigation
     }
-    
-    private func push(controller: UIViewController) {
-        navigation.pushViewController(controller, animated: true)
+
+    func showMainFlow() {
+        let tabBarController = MainTabBarController()
+        navigation.setViewControllers([tabBarController], animated: true)
     }
-    
-    private func pop() {
-        navigation.popViewController(animated: true)
-    }
-    
-    func pushCategoriesViewController() {
-        let viewController = CategoriesViewController(router: self)
-        push(controller: viewController)
-    }
-    
 }
+

@@ -22,7 +22,7 @@ final class MainTabBarController: UITabBarController {
 
         categoriesNav.viewControllers = [categoriesVC]
         categoriesNav.tabBarItem = UITabBarItem(
-            title: "Categories",
+            title: nil,
             image: UIImage(systemName: "list.bullet"),
             selectedImage: UIImage(systemName: "list.bullet")
         )
@@ -31,11 +31,12 @@ final class MainTabBarController: UITabBarController {
         let cartVC = CartViewController()
         cartNav.viewControllers = [cartVC]
         cartNav.tabBarItem = UITabBarItem(
-            title: "Basket",
+            title: nil,
             image: UIImage(systemName: "cart"),
             selectedImage: UIImage(systemName: "cart.fill")
         )
 
         viewControllers = [categoriesNav, cartNav]
     }
+    
 }

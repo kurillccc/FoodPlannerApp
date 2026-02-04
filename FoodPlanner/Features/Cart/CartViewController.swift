@@ -9,27 +9,24 @@ import UIKit
 
 final class CartViewController: UIViewController {
 
-    private let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    
-    private let footerView = UIView()
-    private let totalLabel = UILabel()
-    private let checkoutButton = UIButton(type: .system)
+    private lazy var rootView: CartView = {
+        let view = CartView()
+        return view
+    }()
 
-    private var items: [CartItem] {
-        CartManager.shared.items
+    private var items: [CartItem] { CartManager.shared.items }
+
+    override func loadView() {
+        view = rootView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         embedViews()
         setupDelegates()
         setupStyle()
-        setupFooterStyle()
         observeCart()
         updateTotal()
-        setupLayout()
-        setupFooterLayout()
     }
     
 }
@@ -38,9 +35,7 @@ final class CartViewController: UIViewController {
 
 private extension CartViewController {
     
-    func embedViews() {
-        view.addSubview(tableView)
-    }
+    func embedViews() {}
     
 }
 
@@ -49,10 +44,9 @@ private extension CartViewController {
 private extension CartViewController {
     
     func setupDelegates() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        checkoutButton.addTarget(self, action: #selector(checkoutTapped), for: .touchUpInside)
+        rootView.setDelegates(dataSource: self, delegate: self)
+        rootView.register(CartItemCell.self, forCellReuseIdentifier: CartItemCell.identifier)
+        rootView.checkoutButton.addTarget(self, action: #selector(checkoutTapped), for: .touchUpInside)
     }
     
 }
@@ -62,17 +56,7 @@ private extension CartViewController {
 private extension CartViewController {
     
     func setupStyle() {
-        view.backgroundColor = .systemBackground
-        tableView.backgroundColor = .systemBackground
         title = "Basket"
-    }
-    
-    func setupFooterStyle() {
-        footerView.backgroundColor = .secondarySystemBackground
-        totalLabel.font = .systemFont(ofSize: 17, weight: .semibold)
-        totalLabel.textAlignment = .left
-        checkoutButton.setTitle("Checkout", for: .normal)
-        checkoutButton.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
     }
     
 }
@@ -85,63 +69,23 @@ private extension CartViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCart), name: .init("cartUpdated"), object: nil)
     }
 
-    @objc private func reloadCart() {
-        tableView.reloadData()
+    @objc func reloadCart() {
+        rootView.reloadData()
         updateTotal()
     }
-    
+
     func updateTotal() {
         let total = CartManager.shared.totalAmount()
         let nf = NumberFormatter()
         nf.numberStyle = .currency
         nf.currencyCode = "USD"
-        totalLabel.text = "Total: " + (nf.string(from: total as NSNumber) ?? "")
+        rootView.setTotalText("Total: " + (nf.string(from: total as NSNumber) ?? ""))
     }
-    
-    @objc private func checkoutTapped() {
+
+    @objc func checkoutTapped() {
         let alert = UIAlertController(title: "Checkout", message: "Total order placed!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
-    }
-    
-}
-
-// MARK: - Setup layout
-
-private extension CartViewController {
-
-    func setupLayout() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
-    
-    func setupFooterLayout() {
-        footerView.translatesAutoresizingMaskIntoConstraints = false
-        totalLabel.translatesAutoresizingMaskIntoConstraints = false
-        checkoutButton.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(footerView)
-        footerView.addSubview(totalLabel)
-        footerView.addSubview(checkoutButton)
-
-        NSLayoutConstraint.activate([
-            footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            footerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
-            totalLabel.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 16),
-            totalLabel.centerYAnchor.constraint(equalTo: footerView.centerYAnchor),
-
-            checkoutButton.trailingAnchor.constraint(equalTo: footerView.trailingAnchor, constant: -16),
-            checkoutButton.centerYAnchor.constraint(equalTo: footerView.centerYAnchor),
-
-            footerView.heightAnchor.constraint(equalToConstant: 56)
-        ])
     }
     
 }
@@ -154,22 +98,11 @@ extension CartViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { items.count }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let item = items[indexPath.row]
-        var content = UIListContentConfiguration.subtitleCell()
-        content.text = item.product.title
-        if let price = item.product.price {
-            let nf = NumberFormatter()
-            nf.numberStyle = .currency
-            nf.currencyCode = "USD"
-            content.secondaryText = "Qty: \(item.quantity)  •  \(nf.string(from: price as NSNumber) ?? "")"
-        } else {
-            content.secondaryText = "Qty: \(item.quantity)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: CartItemCell.identifier, for: indexPath)
+        if let cell = cell as? CartItemCell {
+            let item = items[indexPath.row]
+            cell.configure(with: item)
         }
-        content.image = item.product.image
-        content.imageProperties.maximumSize = CGSize(width: 40, height: 40)
-        cell.contentConfiguration = content
-        cell.backgroundColor = .systemBackground
         return cell
     }
     

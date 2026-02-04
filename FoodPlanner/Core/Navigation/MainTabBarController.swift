@@ -38,4 +38,5 @@ final class MainTabBarController: UITabBarController {
 
         viewControllers = [categoriesNav, cartNav]
     }
+    
 }

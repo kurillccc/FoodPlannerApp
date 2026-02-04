@@ -14,6 +14,21 @@ final class ProductsCardCell: UICollectionViewCell {
     var addToCartAction: ((ProductsModel) -> Void)?
     private var currentProduct: ProductsModel?
 
+    private let quantityBadge: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = UIColor.systemBlue
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 12, weight: .bold)
+        label.textAlignment = .center
+        label.layer.cornerRadius = 10
+        label.layer.masksToBounds = true
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private var currentQuantity: Int = 0
+
     private let imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
@@ -71,6 +86,9 @@ final class ProductsCardCell: UICollectionViewCell {
         titleLabel.text = product.title
         currentProduct = product
         
+        currentQuantity = 0
+        updateQuantityBadge()
+        
         if let price = product.price {
             priceLabel.text = format(price: price)
         } else {
@@ -84,6 +102,16 @@ final class ProductsCardCell: UICollectionViewCell {
         formatter.currencyCode = "USD"
         return formatter.string(from: price as NSNumber) ?? ""
     }
+
+    private func updateQuantityBadge() {
+        if currentQuantity > 0 {
+            quantityBadge.isHidden = false
+            quantityBadge.text = "\(currentQuantity)"
+        } else {
+            quantityBadge.isHidden = true
+            quantityBadge.text = nil
+        }
+    }
     
 }
 
@@ -96,7 +124,8 @@ private extension ProductsCardCell {
             imageView,
             titleLabel,
             priceLabel,
-            addButton
+            addButton,
+            quantityBadge
         )
     }
     
@@ -110,6 +139,8 @@ private extension ProductsCardCell {
         contentView.layer.cornerRadius = 16
         contentView.layer.borderWidth = 2
         contentView.layer.borderColor = UIColor.separator.cgColor
+        contentView.backgroundColor = .systemBackground
+        contentView.clipsToBounds = true
     }
     
 }
@@ -120,6 +151,8 @@ private extension ProductsCardCell {
     
     func setupBehavior() {
         addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        addButton.accessibilityLabel = "Add to cart"
+        addButton.accessibilityHint = "Double tap to add one more."
     }
     
     @objc private func addButtonTapped() {
@@ -137,6 +170,8 @@ private extension ProductsCardCell {
         })
 
         guard let product = currentProduct else { return }
+        currentQuantity += 1
+        updateQuantityBadge()
         NotificationCenter.default.post(name: .init("cartUpdated"), object: product)
         addToCartAction?(product)
     }
@@ -166,7 +201,13 @@ private extension ProductsCardCell {
             addButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             addButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
             addButton.heightAnchor.constraint(equalToConstant: 32)
+            ,
+            quantityBadge.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            quantityBadge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            quantityBadge.widthAnchor.constraint(greaterThanOrEqualToConstant: 20),
+            quantityBadge.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
     
 }
+

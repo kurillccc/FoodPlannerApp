@@ -8,7 +8,9 @@
 import UIKit
 
 final class CategoriesView: UIView {
-    
+
+    // MARK: - Properties
+
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Search Store"
@@ -32,9 +34,11 @@ final class CategoriesView: UIView {
         return collectionView
     }()
     
+    // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         embedViews()
         setupStyle()
         setupLayout()

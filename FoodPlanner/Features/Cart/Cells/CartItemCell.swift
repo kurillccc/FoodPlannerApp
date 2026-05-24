@@ -9,7 +9,11 @@ import UIKit
 
 final class CartItemCell: UITableViewCell {
 
+    // MARK: - Properties
+
     static let identifier = "CartItemCell"
+
+    // MARK: - Init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -17,7 +21,7 @@ final class CartItemCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    
+
 }
 
 // MARK: - Public

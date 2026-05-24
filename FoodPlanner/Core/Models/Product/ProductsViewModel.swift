@@ -8,15 +8,19 @@
 import UIKit
 
 final class ProductsViewModel {
-    
+
+    // MARK: - Properties
+
     private let categoryId: String
     private let dataProvider: ProductsDataProvider
-    
+
     private(set) var allProducts: [ProductsModel] = []
     private(set) var products: [ProductsModel] = []
-    
+
     private(set) var cart: [ProductsModel] = []
-    
+
+    // MARK: - Init
+
     init(categoryId: String, dataProvider: ProductsDataProvider = MockProductsDataProvider()) {
         self.categoryId = categoryId
         self.dataProvider = dataProvider
@@ -33,10 +37,12 @@ final class ProductsViewModel {
         self.products = allProducts
     }
     
+    // MARK: - Public
+
     var numberOfItems: Int { products.count }
-    
+
     func item(at indexPath: IndexPath) -> ProductsModel { products[indexPath.item] }
-    
+
     func filter(by query: String?) {
         let q = (query ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         if q.isEmpty {

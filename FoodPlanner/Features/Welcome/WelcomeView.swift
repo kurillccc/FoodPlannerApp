@@ -8,7 +8,9 @@
 import UIKit
 
 final class WelcomeView: UIView {
-    
+
+    // MARK: - Properties
+
     private lazy var backgroundImage: UIImageView = {
         let imageView = UIImageView(image: Images.Welcome.background)
         imageView.contentMode = .scaleAspectFill
@@ -58,9 +60,11 @@ final class WelcomeView: UIView {
     
     var didTapStart: (() -> Void)?
     
+    // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         embedViews()
         setupBehavior()
         setupLayout()

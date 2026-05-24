@@ -9,6 +9,8 @@ import UIKit
 
 final class CartView: UIView {
 
+    // MARK: - Properties
+
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,6 +41,8 @@ final class CartView: UIView {
         return button
     }()
 
+    // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         embedViews()
@@ -48,7 +52,7 @@ final class CartView: UIView {
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    
+
 }
 
 // MARK: - Public

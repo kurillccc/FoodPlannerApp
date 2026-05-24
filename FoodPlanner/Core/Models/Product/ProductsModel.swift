@@ -8,6 +8,9 @@
 import UIKit
 
 struct ProductsModel {
+
+    // MARK: - Properties
+
     let id: String
     let title: String
     let image: UIImage?

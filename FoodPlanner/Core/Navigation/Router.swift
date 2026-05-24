@@ -9,11 +9,17 @@ import UIKit
 
 final class Router {
 
+    // MARK: - Properties
+
     private let navigation: UINavigationController
+
+    // MARK: - Init
 
     init(navigation: UINavigationController) {
         self.navigation = navigation
     }
+
+    // MARK: - Public
 
     func showMainFlow() {
         let tabBarController = MainTabBarController()

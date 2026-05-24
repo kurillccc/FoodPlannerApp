@@ -8,7 +8,9 @@
 import UIKit
 
 class CategoriesCardCell: UICollectionViewCell {
-    
+
+    // MARK: - Properties
+
     var model: CategoriesCardModel? {
         didSet {
             bind()
@@ -39,7 +41,9 @@ class CategoriesCardCell: UICollectionViewCell {
     }()
     
     static let identifier = "CategoryCardCell"
-    
+
+    // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -48,14 +52,16 @@ class CategoriesCardCell: UICollectionViewCell {
         setupLayout()
     }
     
+    // MARK: - Private
+
     private func bind() {
-            guard let model = model else { return }
-            
-            titleLabel.text = model.title
-            imageView.image = model.image
-            backgroundColor = model.color
-            layer.borderColor = model.borderColor.cgColor
-        }
+        guard let model else { return }
+
+        titleLabel.text = model.title
+        imageView.image = model.image
+        backgroundColor = model.color
+        layer.borderColor = model.borderColor.cgColor
+    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

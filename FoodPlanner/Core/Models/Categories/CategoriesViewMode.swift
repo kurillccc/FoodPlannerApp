@@ -8,9 +8,13 @@
 import UIKit
 
 struct CategoriesViewModel {
-    
+
+    // MARK: - Properties
+
     let categories: [CategoriesCardModel]
-    
+
+    // MARK: - Init
+
     init() {
         self.categories = [
             CategoriesCardModel(
@@ -101,6 +105,8 @@ struct CategoriesViewModel {
         
     }
     
+    // MARK: - Public
+
     var numberOfCategories: Int {
         categories.count
     }

@@ -8,12 +8,16 @@
 import UIKit
 
 struct Images {
-    
+
+    // MARK: - Welcome
+
     struct Welcome {
         static let logo = UIImage(named: "logo")!
         static let background = UIImage(named: "welcomeScreen")!
     }
     
+    // MARK: - Category
+
     struct Category {
         static let bakery = UIImage(named: "bakery")!
         static let drinks = UIImage(named: "drinks")!
@@ -23,6 +27,8 @@ struct Images {
         static let oils = UIImage(named: "oils")!
     }
     
+    // MARK: - Products
+
     struct ProductImages {
         struct Bakery {
             static let baguette = UIImage(named: "baguette")!

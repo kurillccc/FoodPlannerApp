@@ -8,9 +8,11 @@
 import UIKit
 
 final class ProductsCardCell: UICollectionViewCell {
-    
+
+    // MARK: - Properties
+
     static let identifier = "ProductCardCell"
-    
+
     var addToCartAction: ((ProductsModel) -> Void)?
     private var currentProduct: ProductsModel?
 
@@ -70,9 +72,11 @@ final class ProductsCardCell: UICollectionViewCell {
         return button
     }()
 
+    // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         embedViews()
         setupStyle()
         setupBehavior()
@@ -80,6 +84,8 @@ final class ProductsCardCell: UICollectionViewCell {
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
+    // MARK: - Public
 
     func configure(with product: ProductsModel) {
         imageView.image = product.image
@@ -95,6 +101,8 @@ final class ProductsCardCell: UICollectionViewCell {
             priceLabel.text = nil
         }
     }
+
+    // MARK: - Private
 
     private func format(price: Decimal) -> String {
         let formatter = NumberFormatter()

@@ -7,10 +7,14 @@
 
 import UIKit
 
+// MARK: - ProductsDataProvider
+
 protocol ProductsDataProvider {
     func bakeryProducts() -> [ProductsModel]
     func beverageProducts() -> [ProductsModel]
 }
+
+// MARK: - MockProductsDataProvider
 
 struct MockProductsDataProvider: ProductsDataProvider {
 

@@ -9,10 +9,14 @@ import UIKit
 
 final class MainTabBarController: UITabBarController {
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabs()
     }
+
+    // MARK: - Private
 
     private func setupTabs() {
 

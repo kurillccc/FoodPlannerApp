@@ -6,6 +6,9 @@
 //
 
 struct CartItem {
+
+    // MARK: - Properties
+
     let product: ProductsModel
     var quantity: Int
 }

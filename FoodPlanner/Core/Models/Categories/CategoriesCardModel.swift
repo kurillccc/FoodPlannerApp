@@ -8,6 +8,9 @@
 import UIKit
 
 struct CategoriesCardModel {
+
+    // MARK: - Properties
+
     let categoryId: String
     let title: String
     let image: UIImage

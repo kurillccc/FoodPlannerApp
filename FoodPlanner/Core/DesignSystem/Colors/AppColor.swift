@@ -9,10 +9,14 @@ import UIKit
 
 enum AppColor {
 
+    // MARK: - Primary
+
     enum Primary {
         static let main = UIColor(red: 84, green: 176, blue: 117, alpha: 1)
         static let description = UIColor(red: 252, green: 252, blue: 252, alpha: 0.7)
     }
+
+    // MARK: - Card
 
     enum Card {
 

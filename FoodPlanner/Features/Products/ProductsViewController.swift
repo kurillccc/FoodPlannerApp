@@ -9,10 +9,14 @@ import UIKit
 import Foundation
 
 final class ProductsViewController: UIViewController {
-    
+
+    // MARK: - Properties
+
     private let productsView = ProductsView()
     private let viewModel: ProductsViewModel
-    
+
+    // MARK: - Init
+
     init(categoryId: String, categoryTitle: String) {
         self.viewModel = ProductsViewModel(categoryId: categoryId)
         super.init(nibName: nil, bundle: nil)
@@ -20,16 +24,18 @@ final class ProductsViewController: UIViewController {
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         embedViews()
         setupDelegates()
         setupStyle()
         setupLayout()
     }
-    
+
 }
 
 // MARK: - Embed views

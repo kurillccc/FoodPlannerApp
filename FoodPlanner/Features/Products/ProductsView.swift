@@ -8,7 +8,9 @@
 import UIKit
 
 final class ProductsView: UIView {
-    
+
+    // MARK: - Properties
+
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Search Store"
@@ -17,7 +19,7 @@ final class ProductsView: UIView {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()
-    
+
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -27,17 +29,19 @@ final class ProductsView: UIView {
         cv.register(ProductsCardCell.self, forCellWithReuseIdentifier: ProductsCardCell.identifier)
         return cv
     }()
-    
+
+    // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         embedViews()
         setupStyle()
         setupLayout()
     }
-    
+
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    
+
 }
 
 // MARK: - Embed views

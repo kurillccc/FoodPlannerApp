@@ -8,18 +8,22 @@
 import UIKit
 
 final class CategoriesViewController: UIViewController {
-    
+
+    // MARK: - Properties
+
     private let categoriesView = CategoriesView()
     private let viewModel = CategoriesViewModel()
     private var router: Router?
-    
+
     private var allCategories: [CategoriesCardModel] = []
     private var filteredCategories: [CategoriesCardModel] = []
-    
+
+    // MARK: - Init
+
     convenience init() {
         self.init(router: nil)
     }
-    
+
     init(router: Router?) {
         self.router = router
         super.init(nibName: nil, bundle: nil)
@@ -28,19 +32,21 @@ final class CategoriesViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         embedViews()
         setupDelegates()
         setupLayout()
         setupNavigationController()
-        
+
         allCategories = viewModel.categories
         filteredCategories = allCategories
     }
-    
+
 }
 
 // MARK: - Embed views

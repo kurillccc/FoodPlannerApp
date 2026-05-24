@@ -9,12 +9,16 @@ import UIKit
 
 final class CartViewController: UIViewController {
 
+    // MARK: - Properties
+
     private lazy var rootView: CartView = {
         let view = CartView()
         return view
     }()
 
     private var items: [CartItem] { CartManager.shared.items }
+
+    // MARK: - Lifecycle
 
     override func loadView() {
         view = rootView
@@ -28,7 +32,7 @@ final class CartViewController: UIViewController {
         observeCart()
         updateTotal()
     }
-    
+
 }
 
 // MARK: - Embed views

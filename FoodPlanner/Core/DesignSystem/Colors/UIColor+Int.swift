@@ -8,7 +8,9 @@
 import UIKit
 
 extension UIColor {
-    
+
+    // MARK: - Init
+
     convenience init(
         red: Int,
         green: Int,

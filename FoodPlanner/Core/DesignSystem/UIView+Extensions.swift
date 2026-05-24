@@ -8,7 +8,9 @@
 import UIKit
 
 extension UIView {
-    
+
+    // MARK: - Layout
+
     func pinToEdges(of view: UIView, with constant: CGFloat = 0) {
         NSLayoutConstraint.activate([
             self.topAnchor.constraint(equalTo: view.topAnchor, constant: constant),
@@ -18,6 +20,8 @@ extension UIView {
         ])
     }
     
+    // MARK: - Hierarchy
+
     func addSubViews(_ views: UIView...) {
         views.forEach { self.addSubview($0) }
     }

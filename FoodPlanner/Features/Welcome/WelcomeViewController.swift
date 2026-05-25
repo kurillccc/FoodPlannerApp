@@ -47,6 +47,7 @@ private extension WelcomeViewController {
     func embedViews() {
         view.addSubview(welcomeView)
         welcomeView.didTapStart = { [weak self] in
+            UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding")
             self?.router?.showMainFlow()
         }
     }

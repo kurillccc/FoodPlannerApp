@@ -88,6 +88,7 @@ private extension CategoriesViewController {
     
     func setupNavigationController() {
         title = "Find Products"
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.setHidesBackButton(true, animated: false)
     }
     

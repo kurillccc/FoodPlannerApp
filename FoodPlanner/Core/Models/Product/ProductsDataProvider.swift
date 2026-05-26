@@ -12,6 +12,7 @@ import UIKit
 protocol ProductsDataProvider {
     func bakeryProducts() -> [ProductsModel]
     func beverageProducts() -> [ProductsModel]
+    func fruitsProducts() -> [ProductsModel]
 }
 
 // MARK: - MockProductsDataProvider
@@ -104,7 +105,33 @@ struct MockProductsDataProvider: ProductsDataProvider {
             )
         ]
     }
-    
+
+    func fruitsProducts() -> [ProductsModel] {
+        return [
+            ProductsModel(
+                id: "20",
+                title: "Bananas",
+                image: Images.Category.fruits,
+                price: 129,
+                categoryId: "fruits"
+            ),
+            ProductsModel(
+                id: "21",
+                title: "Red apples",
+                image: Images.Category.fruits,
+                price: 159,
+                categoryId: "fruits"
+            ),
+            ProductsModel(
+                id: "22",
+                title: "Tomatoes",
+                image: Images.Category.fruits,
+                price: 199,
+                categoryId: "fruits"
+            )
+        ]
+    }
+
 }
 
 

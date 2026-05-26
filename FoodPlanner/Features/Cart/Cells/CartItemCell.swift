@@ -40,9 +40,11 @@ extension CartItemCell {
             content.secondaryText = "Qty: \(item.quantity)"
         }
         content.image = item.product.image
-        content.imageProperties.maximumSize = CGSize(width: 40, height: 40)
-        self.contentConfiguration = content
-        backgroundColor = .systemBackground
+        content.imageProperties.maximumSize = CGSize(width: 56, height: 56)
+        content.imageProperties.reservedLayoutSize = CGSize(width: 56, height: 56)
+        content.imageProperties.cornerRadius = 12
+        content.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
+        contentConfiguration = content
     }
     
 }
@@ -53,6 +55,16 @@ private extension CartItemCell {
     
     func setupStyle() {
         selectionStyle = .none
+        backgroundColor = .clear
+
+        var background = UIBackgroundConfiguration.clear()
+        background.backgroundColor = .secondarySystemBackground
+        background.strokeColor = UIColor.separator
+        background.strokeWidth = 1
+        background.cornerRadius = 22
+        // Make the capsule wider
+        background.backgroundInsets = NSDirectionalEdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12)
+        backgroundConfiguration = background
     }
     
 }

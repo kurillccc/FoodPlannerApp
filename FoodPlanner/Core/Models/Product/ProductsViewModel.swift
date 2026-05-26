@@ -30,6 +30,8 @@ final class ProductsViewModel {
             self.allProducts = dataProvider.beverageProducts()
         case "bakery":
             self.allProducts = dataProvider.bakeryProducts()
+        case "fruits":
+            self.allProducts = dataProvider.fruitsProducts()
         default:
             self.allProducts = []
         }

@@ -66,6 +66,7 @@ private extension ProductsViewController {
     
     func setupStyle() {
         view.backgroundColor = .systemBackground
+        navigationItem.largeTitleDisplayMode = .never
     }
     
 }

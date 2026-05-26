@@ -51,6 +51,9 @@ private extension CartViewController {
         rootView.setDelegates(dataSource: self, delegate: self)
         rootView.register(CartItemCell.self, forCellReuseIdentifier: CartItemCell.identifier)
         rootView.checkoutButton.addTarget(self, action: #selector(checkoutTapped), for: .touchUpInside)
+
+        rootView.tableView.estimatedRowHeight = 88
+        rootView.tableView.rowHeight = UITableView.automaticDimension
     }
     
 }
@@ -61,6 +64,7 @@ private extension CartViewController {
     
     func setupStyle() {
         title = "Basket"
+        navigationItem.largeTitleDisplayMode = .never
     }
     
 }

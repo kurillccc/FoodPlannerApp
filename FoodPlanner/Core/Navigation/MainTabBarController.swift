@@ -21,6 +21,7 @@ final class MainTabBarController: UITabBarController {
     private func setupTabs() {
 
         let categoriesNav = UINavigationController()
+        categoriesNav.navigationBar.prefersLargeTitles = false
         let categoriesRouter = Router(navigation: categoriesNav)
         let categoriesVC = CategoriesViewController(router: categoriesRouter)
 
@@ -40,7 +41,17 @@ final class MainTabBarController: UITabBarController {
             selectedImage: UIImage(systemName: "cart.fill")
         )
 
-        viewControllers = [categoriesNav, cartNav]
+        let settingsNav = UINavigationController()
+        settingsNav.navigationBar.prefersLargeTitles = false
+        let settingsVC = SettingsViewController()
+        settingsNav.viewControllers = [settingsVC]
+        settingsNav.tabBarItem = UITabBarItem(
+            title: "Settings",
+            image: UIImage(systemName: "gearshape"),
+            selectedImage: UIImage(systemName: "gearshape.fill")
+        )
+
+        viewControllers = [categoriesNav, cartNav, settingsNav]
     }
     
 }

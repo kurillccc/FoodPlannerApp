@@ -20,6 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let navigationController = UINavigationController()
+        navigationController.navigationBar.prefersLargeTitles = false
+
         let router = Router(navigation: navigationController)
 
         if UserDefaults.standard.bool(forKey: "hasCompletedOnboarding") {
@@ -31,6 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         let window = UIWindow(windowScene: windowScene)
+        window.overrideUserInterfaceStyle = SettingsManager.shared.theme.interfaceStyle
         window.rootViewController = navigationController
         self.window = window
         window.makeKeyAndVisible()

@@ -14,6 +14,7 @@ struct CategoriesCardModel {
     let categoryId: String
     let title: String
     let image: UIImage
+    let imageURL: URL?
     let color: UIColor
     let borderColor: UIColor
 }

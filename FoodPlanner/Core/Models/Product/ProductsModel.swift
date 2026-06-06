@@ -14,6 +14,7 @@ struct ProductsModel {
     let id: String
     let title: String
     let image: UIImage?
+    let imageURL: URL?
     let price: Decimal?
     let categoryId: String
 }

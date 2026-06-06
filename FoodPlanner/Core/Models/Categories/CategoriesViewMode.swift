@@ -7,111 +7,96 @@
 
 import UIKit
 
-struct CategoriesViewModel {
+final class CategoriesViewModel {
 
     // MARK: - Properties
 
-    let categories: [CategoriesCardModel]
+    private(set) var categories: [CategoriesCardModel] = []
 
-    // MARK: - Init
-
-    init() {
-        self.categories = [
-            CategoriesCardModel(
-                categoryId: "bakery",
-                title: "Bakery and Snacks",
-                image: Images.Category.bakery,
-                color: AppColor.Card.Bakery.fill,
-                borderColor: AppColor.Card.Bakery.stroke
-            ),
-            CategoriesCardModel(
-                categoryId: "fruits",
-                title: "Frash Fruits & Vegetable",
-                image: Images.Category.fruits,
-                color: AppColor.Card.FruitVeg.fill,
-                borderColor: AppColor.Card.FruitVeg.stroke
-            ),
-            CategoriesCardModel(
-                categoryId: "dairy",
-                title: "Dairy",
-                image: Images.Category.milk,
-                color: AppColor.Card.Dairy.fill,
-                borderColor: AppColor.Card.Dairy.stroke
-            ),
-            CategoriesCardModel(
-                categoryId: "meat",
-                title: "Meat",
-                image: Images.Category.meat,
-                color: AppColor.Card.Meat.fill,
-                borderColor: AppColor.Card.Meat.stroke
-            ),
-            CategoriesCardModel(
-                categoryId: "beverages",
-                title: "Beverages",
-                image: Images.Category.drinks,
-                color: AppColor.Card.Drinks.fill,
-                borderColor: AppColor.Card.Drinks.stroke
-            ),
-            CategoriesCardModel(
-                categoryId: "bakery",
-                title: "Bakery and Snacks",
-                image: Images.Category.bakery,
-                color: AppColor.Card.Bakery.fill,
-                borderColor: AppColor.Card.Bakery.stroke
-            ),
-            CategoriesCardModel(
-                categoryId: "oil",
-                title: "Cooking Oil & Ghee",
-                image: Images.Category.oils,
-                color: AppColor.Card.Oils.fill,
-                borderColor: AppColor.Card.Oils.stroke
-            ),
-            CategoriesCardModel(
-                categoryId: "bakery",
-                title: "Dairy",
-                image: Images.Category.milk,
-                color: AppColor.Card.Dairy.fill,
-                borderColor: AppColor.Card.Dairy.stroke
-            ),
-            CategoriesCardModel(
-                categoryId: "meat",
-                title: "Meat",
-                image: Images.Category.meat,
-                color: AppColor.Card.Meat.fill,
-                borderColor: AppColor.Card.Meat.stroke
-            ),
-            CategoriesCardModel(
-                categoryId: "bakery",
-                title: "Bakery and Snacks",
-                image: Images.Category.bakery,
-                color: AppColor.Card.Bakery.fill,
-                borderColor: AppColor.Card.Bakery.stroke
-            ),
-            CategoriesCardModel(
-                categoryId: "beverages",
-                title: "Beverages",
-                image: Images.Category.drinks,
-                color: AppColor.Card.Drinks.fill,
-                borderColor: AppColor.Card.Drinks.stroke
-            ),
-            CategoriesCardModel(
-                categoryId: "bakery",
-                title: "Bakery and Snacks",
-                image: Images.Category.bakery,
-                color: AppColor.Card.Bakery.fill,
-                borderColor: AppColor.Card.Bakery.stroke
-            )
-        ]
-        
-    }
-    
     // MARK: - Public
 
     var numberOfCategories: Int {
         categories.count
     }
-    
+
     func category(at index: Int) -> CategoriesCardModel {
         categories[index]
+    }
+
+    @MainActor
+    func loadCategories() async {
+        do {
+            let names = try await StoreAPIClient.shared.fetchCategories()
+
+            let mapped = await withTaskGroup(of: CategoriesCardModel.self) { group in
+                for name in names {
+                    group.addTask {
+                        let coverURL: URL? = (try? await StoreAPIClient.shared.fetchProducts(category: name).first)
+                            .flatMap { URL(string: $0.image) }
+
+                        return CategoriesCardModel(
+                            categoryId: name,
+                            title: self.formatCategoryTitle(name),
+                            image: self.categoryImage(name),
+                            imageURL: coverURL,
+                            color: self.categoryColors(name).fill,
+                            borderColor: self.categoryColors(name).stroke
+                        )
+                    }
+                }
+
+                var result: [CategoriesCardModel] = []
+                result.reserveCapacity(names.count)
+                for await model in group {
+                    result.append(model)
+                }
+                return result.sorted { $0.title < $1.title }
+            }
+
+            categories = mapped
+        } catch {
+            categories = []
+        }
+    }
+
+    // MARK: - Private
+
+    private func formatCategoryTitle(_ raw: String) -> String {
+        raw
+            .replacingOccurrences(of: "\"", with: "")
+            .replacingOccurrences(of: "'", with: "’")
+            .capitalized
+    }
+
+    private func categoryImage(_ category: String) -> UIImage {
+        let key = category.lowercased()
+        switch key {
+        case "electronics":
+            return UIImage(systemName: "tv") ?? UIImage()
+        case "jewelery":
+            return UIImage(systemName: "sparkles") ?? UIImage()
+        case "men’s clothing", "men's clothing":
+            return UIImage(systemName: "tshirt") ?? UIImage()
+        case "women’s clothing", "women's clothing":
+            return UIImage(systemName: "tshirt.fill") ?? UIImage()
+        default:
+            return UIImage(systemName: "cart") ?? UIImage()
+        }
+    }
+
+    private func categoryColors(_ category: String) -> (fill: UIColor, stroke: UIColor) {
+        let key = category.lowercased()
+        switch key {
+        case "electronics":
+            return (AppColor.Card.Drinks.fill, AppColor.Card.Drinks.stroke)
+        case "jewelery":
+            return (AppColor.Card.Oils.fill, AppColor.Card.Oils.stroke)
+        case "men’s clothing", "men's clothing":
+            return (AppColor.Card.Meat.fill, AppColor.Card.Meat.stroke)
+        case "women’s clothing", "women's clothing":
+            return (AppColor.Card.Bakery.fill, AppColor.Card.Bakery.stroke)
+        default:
+            return (AppColor.Card.FruitVeg.fill, AppColor.Card.FruitVeg.stroke)
+        }
     }
 }

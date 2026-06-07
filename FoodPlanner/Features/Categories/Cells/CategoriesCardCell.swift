@@ -42,14 +42,25 @@ class CategoriesCardCell: UICollectionViewCell {
     
     static let identifier = "CategoryCardCell"
 
+    private var imageTask: Task<Void, Never>?
+    private var currentImageURL: URL?
+
     // MARK: - Init
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         embedViews()
         setupStyle()
         setupLayout()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageTask?.cancel()
+        imageTask = nil
+        currentImageURL = nil
+        imageView.image = nil
     }
     
     // MARK: - Private
@@ -58,9 +69,25 @@ class CategoriesCardCell: UICollectionViewCell {
         guard let model else { return }
 
         titleLabel.text = model.title
-        imageView.image = model.image
         backgroundColor = model.color
         layer.borderColor = model.borderColor.cgColor
+
+        imageTask?.cancel()
+        imageTask = nil
+
+        imageView.image = model.image
+
+        if let url = model.imageURL {
+            currentImageURL = url
+            imageTask = Task { [weak self] in
+                guard let self else { return }
+                let image = await ImageLoader.shared.loadImage(from: url)
+                guard !Task.isCancelled, self.currentImageURL == url else { return }
+                if let image {
+                    self.imageView.image = image
+                }
+            }
+        }
     }
 
     required init?(coder: NSCoder) {

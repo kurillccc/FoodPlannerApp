@@ -11,6 +11,13 @@ final class CategoriesView: UIView {
 
     // MARK: - Properties
 
+    private let loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Search Store"
@@ -61,7 +68,8 @@ private extension CategoriesView {
     func embedViews() {
         addSubViews(
             searchBar,
-            collectionView
+            collectionView,
+            loadingIndicator
         )
     }
     
@@ -98,10 +106,26 @@ private extension CategoriesView {
             collectionView.trailingAnchor
                 .constraint(equalTo: trailingAnchor, constant: -24),
             collectionView.bottomAnchor
-                .constraint(equalTo: bottomAnchor, constant: 8)
+                .constraint(equalTo: bottomAnchor, constant: 8),
+
+            loadingIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
-    
+
+}
+
+// MARK: - Public
+
+extension CategoriesView {
+
+    func setLoading(_ isLoading: Bool) {
+        if isLoading {
+            loadingIndicator.startAnimating()
+        } else {
+            loadingIndicator.stopAnimating()
+        }
+    }
 }
 
 #Preview {

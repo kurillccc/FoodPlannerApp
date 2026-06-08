@@ -15,6 +15,7 @@ final class ProductsCardCell: UICollectionViewCell {
 
     var addToCartAction: ((ProductsModel) -> Void)?
     private var currentProduct: ProductsModel?
+    private var imageTask: Task<Void, Never>?
 
     private let quantityBadge: UILabel = {
         let label = UILabel()
@@ -83,18 +84,40 @@ final class ProductsCardCell: UICollectionViewCell {
         setupLayout()
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageTask?.cancel()
+        imageTask = nil
+        imageView.image = nil
+    }
+
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     // MARK: - Public
 
     func configure(with product: ProductsModel) {
-        imageView.image = product.image
+        imageTask?.cancel()
+        imageTask = nil
+
+        imageView.image = product.image ?? UIImage(systemName: "photo")
         titleLabel.text = product.title
         currentProduct = product
-        
+
+        if product.image == nil, let url = product.imageURL {
+            let expectedId = product.id
+            imageTask = Task { [weak self] in
+                guard let self else { return }
+                let image = await ImageLoader.shared.loadImage(from: url)
+                guard !Task.isCancelled, self.currentProduct?.id == expectedId else { return }
+                if let image {
+                    self.imageView.image = image
+                }
+            }
+        }
+
         currentQuantity = 0
         updateQuantityBadge()
-        
+
         if let price = product.price {
             priceLabel.text = format(price: price)
         } else {

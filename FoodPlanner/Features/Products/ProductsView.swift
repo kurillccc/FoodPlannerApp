@@ -20,6 +20,13 @@ final class ProductsView: UIView {
         return searchBar
     }()
 
+    private let loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -51,7 +58,8 @@ private extension ProductsView {
     func embedViews() {
         addSubViews(
             searchBar,
-            collectionView
+            collectionView,
+            loadingIndicator
         )
     }
     
@@ -82,10 +90,26 @@ private extension ProductsView {
             collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 8)
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 8),
+
+            loadingIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     
+}
+
+// MARK: - Public
+
+extension ProductsView {
+
+    func setLoading(_ isLoading: Bool) {
+        if isLoading {
+            loadingIndicator.startAnimating()
+        } else {
+            loadingIndicator.stopAnimating()
+        }
+    }
 }
 
 #Preview {

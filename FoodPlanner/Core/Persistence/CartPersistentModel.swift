@@ -43,13 +43,18 @@ enum CartPersistentModel {
         quantity.attributeType = .integer64AttributeType
         quantity.isOptional = false
 
+        let imageURL = NSAttributeDescription()
+        imageURL.name = "imageURL"
+        imageURL.attributeType = .stringAttributeType
+        imageURL.isOptional = true
+
         let imageData = NSAttributeDescription()
         imageData.name = "imageData"
         imageData.attributeType = .binaryDataAttributeType
         imageData.isOptional = true
         imageData.allowsExternalBinaryDataStorage = true
 
-        entity.properties = [productId, title, categoryId, price, quantity, imageData]
+        entity.properties = [productId, title, categoryId, price, quantity, imageURL, imageData]
         model.entities = [entity]
 
         return model

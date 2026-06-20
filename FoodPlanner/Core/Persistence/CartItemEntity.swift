@@ -17,5 +17,6 @@ final class CartItemEntity: NSManagedObject {
     @NSManaged var categoryId: String
     @NSManaged var price: NSDecimalNumber?
     @NSManaged var quantity: Int64
+    @NSManaged var imageURL: String?
     @NSManaged var imageData: Data?
 }

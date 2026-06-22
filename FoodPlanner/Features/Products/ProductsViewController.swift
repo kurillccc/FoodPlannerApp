@@ -34,6 +34,14 @@ final class ProductsViewController: UIViewController {
         setupDelegates()
         setupStyle()
         setupLayout()
+
+        productsView.setLoading(true)
+        Task { [weak self] in
+            guard let self else { return }
+            await viewModel.load()
+            productsView.setLoading(false)
+            productsView.collectionView.reloadData()
+        }
     }
 
 }
@@ -106,7 +114,7 @@ extension ProductsViewController: UICollectionViewDataSource {
         ) as? ProductsCardCell else {
             return UICollectionViewCell()
         }
-        cell.configure(with: viewModel.item(at: indexPath))
+        cell.configure(with: viewModel.item(at: indexPath.item))
         cell.addToCartAction = { product in
             CartManager.shared.add(product: product)
         }

@@ -29,11 +29,13 @@ final class CartPersistenceStore {
             let entities = try stack.viewContext.fetch(request)
             return entities.compactMap { entity in
                 let image: UIImage? = entity.imageData.flatMap { UIImage(data: $0) }
+                let imageURL: URL? = entity.imageURL.flatMap { URL(string: $0) }
 
                 let product = ProductsModel(
                     id: entity.productId,
                     title: entity.title,
                     image: image,
+                    imageURL: imageURL,
                     price: entity.price.map { Decimal(string: $0.stringValue) ?? 0 },
                     categoryId: entity.categoryId
                 )
@@ -72,6 +74,7 @@ final class CartPersistenceStore {
             entity.categoryId = item.product.categoryId
             entity.price = item.product.price.map { NSDecimalNumber(decimal: $0) }
             entity.quantity = Int64(item.quantity)
+            entity.imageURL = item.product.imageURL?.absoluteString
             entity.imageData = item.product.image?.pngData()
         }
 

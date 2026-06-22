@@ -13,11 +13,21 @@ final class CartItemCell: UITableViewCell {
 
     static let identifier = "CartItemCell"
 
+    private var imageTask: Task<Void, Never>?
+    private var currentImageURL: URL?
+
     // MARK: - Init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupStyle()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageTask?.cancel()
+        imageTask = nil
+        currentImageURL = nil
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -39,12 +49,37 @@ extension CartItemCell {
         } else {
             content.secondaryText = "Qty: \(item.quantity)"
         }
-        content.image = item.product.image
+        content.image = item.product.image ?? UIImage(systemName: "photo")
         content.imageProperties.maximumSize = CGSize(width: 56, height: 56)
         content.imageProperties.reservedLayoutSize = CGSize(width: 56, height: 56)
         content.imageProperties.cornerRadius = 12
         content.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
         contentConfiguration = content
+
+        imageTask?.cancel()
+        imageTask = nil
+
+        if item.product.image == nil, let url = item.product.imageURL {
+            currentImageURL = url
+            imageTask = Task { [weak self] in
+                guard let self else { return }
+                let image = await ImageLoader.shared.loadImage(from: url)
+                guard !Task.isCancelled, self.currentImageURL == url else { return }
+                guard let image else { return }
+
+                await MainActor.run {
+                    var updated = UIListContentConfiguration.subtitleCell()
+                    updated.text = content.text
+                    updated.secondaryText = content.secondaryText
+                    updated.image = image
+                    updated.imageProperties.maximumSize = content.imageProperties.maximumSize
+                    updated.imageProperties.reservedLayoutSize = content.imageProperties.reservedLayoutSize
+                    updated.imageProperties.cornerRadius = content.imageProperties.cornerRadius
+                    updated.directionalLayoutMargins = content.directionalLayoutMargins
+                    self.contentConfiguration = updated
+                }
+            }
+        }
     }
     
 }

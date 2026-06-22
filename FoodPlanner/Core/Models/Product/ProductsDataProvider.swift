@@ -25,6 +25,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "1",
                 title: "French baguette",
                 image: Images.ProductImages.Bakery.baguette,
+                imageURL: nil,
                 price: 110,
                 categoryId: "bakery"
             ),
@@ -32,6 +33,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "2",
                 title: "Chocolate croissant",
                 image: Images.ProductImages.Bakery.croissant,
+                imageURL: nil,
                 price: 120,
                 categoryId: "bakery"
             ),
@@ -39,6 +41,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "3",
                 title: "Sliced bread",
                 image: Images.ProductImages.Bakery.bread,
+                imageURL: nil,
                 price: 89,
                 categoryId: "bakery"
             ),
@@ -46,6 +49,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "4",
                 title: "Oatmeal cookies",
                 image: Images.ProductImages.Bakery.cookies,
+                imageURL: nil,
                 price: 250,
                 categoryId: "bakery"
             ),
@@ -53,6 +57,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "5",
                 title: "Glazed donut",
                 image: Images.ProductImages.Bakery.donut,
+                imageURL: nil,
                 price: 65,
                 categoryId: "bakery"
             ),
@@ -60,6 +65,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "6",
                 title: "Cherry pie",
                 image: Images.ProductImages.Bakery.pie,
+                imageURL: nil,
                 price: 320,
                 categoryId: "bakery"
             ),
@@ -67,6 +73,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "7",
                 title: "Cherry pie",
                 image: Images.ProductImages.Bakery.pie,
+                imageURL: nil,
                 price: 300,
                 categoryId: "bakery"
             ),
@@ -74,6 +81,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "8",
                 title: "Cherry pie",
                 image: Images.ProductImages.Bakery.pie,
+                imageURL: nil,
                 price: 250,
                 categoryId: "bakery"
             ),
@@ -81,6 +89,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "9",
                 title: "Cherry pie",
                 image: Images.ProductImages.Bakery.pie,
+                imageURL: nil,
                 price: 390,
                 categoryId: "bakery"
             )
@@ -93,6 +102,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "10",
                 title: "Cola",
                 image: Images.ProductImages.Drinks.cola,
+                imageURL: nil,
                 price: 99,
                 categoryId: "beverages"
             ),
@@ -100,6 +110,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "11",
                 title: "Orange juice",
                 image: Images.ProductImages.Drinks.juice,
+                imageURL: nil,
                 price: 180,
                 categoryId: "beverages"
             )
@@ -112,6 +123,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "20",
                 title: "Bananas",
                 image: Images.Category.fruits,
+                imageURL: nil,
                 price: 129,
                 categoryId: "fruits"
             ),
@@ -119,6 +131,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "21",
                 title: "Red apples",
                 image: Images.Category.fruits,
+                imageURL: nil,
                 price: 159,
                 categoryId: "fruits"
             ),
@@ -126,6 +139,7 @@ struct MockProductsDataProvider: ProductsDataProvider {
                 id: "22",
                 title: "Tomatoes",
                 image: Images.Category.fruits,
+                imageURL: nil,
                 price: 199,
                 categoryId: "fruits"
             )

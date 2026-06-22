@@ -43,8 +43,15 @@ final class CategoriesViewController: UIViewController {
         setupLayout()
         setupNavigationController()
 
-        allCategories = viewModel.categories
-        filteredCategories = allCategories
+        categoriesView.setLoading(true)
+        Task { [weak self] in
+            guard let self else { return }
+            await viewModel.loadCategories()
+            categoriesView.setLoading(false)
+            allCategories = viewModel.categories
+            filteredCategories = allCategories
+            categoriesView.collectionView.reloadData()
+        }
     }
 
 }
